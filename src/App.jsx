@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Register from "./pages/Register";
 import SignIn from "./pages/SignIn";
 import Menu from "./pages/Menu";
@@ -6,9 +6,11 @@ import FoodDetail from "./pages/FoodDetail";
 import SavedRecipes from "./pages/SavedRecipes";
 import NotFound from "./pages/NotFound";
 
+import { useAuth } from "./context/AuthContext";
+
 function ProtectedRoute({ children }) {
-  // Security checks disabled - return children directly
-  return children;
+  const { token } = useAuth();
+  return token ? children : <Navigate to="/signin" replace />;
 }
 
 function App() {
