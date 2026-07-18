@@ -2,8 +2,8 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 
-// Register
-export const register = async (req, res) => {
+// Register User
+export const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
@@ -24,9 +24,21 @@ export const register = async (req, res) => {
       password: hashedPassword,
     });
 
+    const token = jwt.sign(
+      {
+        id: user._id,
+        role: user.role,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "7d",
+      }
+    );
+
     res.status(201).json({
       success: true,
       message: "Registration successful",
+      token,
       user: {
         id: user._id,
         name: user.name,
@@ -42,8 +54,8 @@ export const register = async (req, res) => {
   }
 };
 
-// Login
-export const login = async (req, res) => {
+// Login User
+export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -85,6 +97,21 @@ export const login = async (req, res) => {
         email: user.email,
         role: user.role,
       },
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+// Get Current User
+export const getCurrentUser = async (req, res) => {
+  try {
+    res.status(200).json({
+      success: true,
+      user: req.user,
     });
   } catch (error) {
     res.status(500).json({

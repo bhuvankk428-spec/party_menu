@@ -22,8 +22,7 @@ const Menu = () => {
     const fetchRecipes = async () => {
       try {
         const response = await getAllRecipes();
-
-setRecipes(response.data || []);
+        setRecipes(response.recipes || []);
       } catch (error) {
         console.error("Failed to fetch recipes:", error);
       } finally {
@@ -54,23 +53,34 @@ setRecipes(response.data || []);
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <h2 className="text-xl font-semibold">
-          Loading recipes...
+      <div className="min-h-screen bg-stone-50/50 flex flex-col items-center justify-center gap-4">
+        <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin" />
+        <h2 className="text-stone-600 font-bold text-lg animate-pulse">
+          Curating your menu...
         </h2>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-orange-50">
+    <div className="min-h-screen bg-stone-50/50">
       <Header
         user={user}
         savedCount={savedRecipes.length}
         onLogout={logout}
       />
 
-      <div className="max-w-7xl mx-auto px-6 py-8">
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 py-10 space-y-10">
+        {/* Intro Hero Section */}
+        <div className="text-center sm:text-left space-y-2">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-stone-800 tracking-tight">
+            Discover Exquisite Recipes
+          </h2>
+          <p className="text-stone-500 max-w-2xl text-sm sm:text-base leading-relaxed">
+            Browse through our curated list of gourmet recipes, filter by category or dietary preference, and save your favorites for your next big party!
+          </p>
+        </div>
+
         <FilterBar
           category={category}
           setCategory={setCategory}
@@ -81,13 +91,17 @@ setRecipes(response.data || []);
         />
 
         {filteredFoods.length === 0 ? (
-          <div className="text-center mt-10">
-            <h2 className="text-2xl font-semibold text-gray-600">
-              No recipes found.
+          <div className="bg-white/60 border border-stone-200/50 rounded-3xl p-12 text-center shadow-[0_8px_30px_rgb(0,0,0,0.01)]">
+            <span className="text-4xl">🔍</span>
+            <h2 className="text-xl font-bold text-stone-700 mt-4">
+              No recipes match your criteria.
             </h2>
+            <p className="text-stone-400 text-sm mt-1 max-w-md mx-auto">
+              Try searching for something else, or adjusting your category and dietary filters.
+            </p>
           </div>
         ) : (
-          <div className="grid gap-6 mt-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {filteredFoods.map((item) => (
               <FoodCard key={item.id} item={item} />
             ))}

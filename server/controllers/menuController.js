@@ -1,7 +1,7 @@
-import Recipe from "../models/Menu.js";
+import Recipe from "../models/Recipe.js";
 
 // Get all recipes
-export const getAllRecipes = async (req, res) => {
+export const getRecipes = async (req, res) => {
   try {
     const recipes = await Recipe.find().sort({ id: 1 });
 
