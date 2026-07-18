@@ -6,8 +6,13 @@ const STORAGE_KEY = "party_menu_saved_recipes";
 
 export const SavedRecipeProvider = ({ children }) => {
   const [savedRecipes, setSavedRecipes] = useState(() => {
-    const recipes = localStorage.getItem(STORAGE_KEY);
-    return recipes ? JSON.parse(recipes) : [];
+    try {
+      const recipes = localStorage.getItem(STORAGE_KEY);
+      return recipes ? JSON.parse(recipes) : [];
+    } catch (e) {
+      console.error("Failed to parse saved recipes from localStorage:", e);
+      return [];
+    }
   });
 
   useEffect(() => {

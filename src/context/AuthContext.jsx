@@ -6,9 +6,13 @@ const TOKEN_KEY = "party_menu_token";
 const USER_KEY = "party_menu_user";
 
 export const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState(
-    localStorage.getItem(TOKEN_KEY)
-  );
+  const [token, setToken] = useState(() => {
+    const saved = localStorage.getItem(TOKEN_KEY);
+    if (!saved || saved === "undefined" || saved === "null") {
+      return null;
+    }
+    return saved;
+  });
 const [user, setUser] = useState(() => {
   const saved = localStorage.getItem(USER_KEY);
 

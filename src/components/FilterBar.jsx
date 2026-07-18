@@ -88,7 +88,7 @@ const FilterBar = ({
             )}
           </div>
           <button
-            onClick={onSearch}
+            onClick={() => onSearch?.()}
             className="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-bold text-sm px-8 py-3.5 rounded-2xl shadow-lg shadow-orange-500/15 hover:shadow-orange-500/25 active:scale-95 transition-all duration-300 cursor-pointer"
           >
             Search
