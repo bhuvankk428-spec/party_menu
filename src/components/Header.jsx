@@ -2,37 +2,46 @@ import { Link } from "react-router-dom";
 
 const Header = ({ user, savedCount, onLogout }) => {
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-md bg-white/75 border-b border-stone-200/40 px-6 sm:px-12 py-4 flex flex-col sm:flex-row justify-between items-center gap-4 shadow-sm">
-      <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-        <Link to="/" className="inline-block">
-          <h1 className="text-3xl font-black bg-gradient-to-r from-rose-600 via-orange-500 to-amber-500 bg-clip-text text-transparent tracking-tight hover:opacity-90 transition">
+    <header className="bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center">
+      <div>
+        <Link to="/">
+          <h1 className="text-2xl font-bold text-red-650 hover:text-red-700">
             Party Menu
           </h1>
         </Link>
         {user?.name && (
-          <p className="text-xs text-stone-500 font-medium mt-0.5">
-            Hey, <span className="text-stone-700 font-bold">{user.name}</span>! Ready for some delicious recipes?
+          <p className="text-xs text-gray-500 mt-1">
+            Welcome, <span className="font-semibold text-gray-700">{user.name}</span>!
           </p>
         )}
       </div>
 
-      <div className="flex items-center gap-6">
+      <div className="flex items-center gap-4">
         <Link
           to="/saved"
-          className="flex items-center gap-2.5 font-bold text-stone-700 hover:text-rose-600 transition-colors duration-300 group"
+          className="text-sm font-medium text-gray-650 hover:text-red-600 flex items-center gap-1.5"
         >
-          <span className="text-sm">Saved Recipes</span>
-          <span className="bg-rose-50 text-rose-600 border border-rose-100 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold shadow-sm group-hover:bg-rose-600 group-hover:text-white group-hover:border-rose-600 transition-all duration-300">
+          <span>Saved Recipes</span>
+          <span className="bg-red-100 text-red-700 rounded-full px-2 py-0.5 text-xs font-bold">
             {savedCount}
           </span>
         </Link>
 
-        <button
-          onClick={onLogout}
-          className="bg-stone-900 hover:bg-stone-800 text-white font-bold text-xs uppercase tracking-wider px-5 py-2.5 rounded-xl shadow-md shadow-stone-900/10 hover:shadow-stone-900/20 active:scale-95 transition-all duration-300"
-        >
-          Logout
-        </button>
+        {user ? (
+          <button
+            onClick={onLogout}
+            className="bg-gray-800 hover:bg-gray-900 text-white text-xs font-semibold px-4 py-2 rounded"
+          >
+            Logout
+          </button>
+        ) : (
+          <Link
+            to="/signin"
+            className="bg-red-600 hover:bg-red-700 text-white text-xs font-semibold px-4 py-2 rounded"
+          >
+            Sign In
+          </Link>
+        )}
       </div>
     </header>
   );

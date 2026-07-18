@@ -6,48 +6,41 @@ const FoodCard = ({ item }) => {
   return (
     <div
       onClick={() => navigate(`/food/${item.id}`)}
-      className="group bg-white rounded-3xl overflow-hidden cursor-pointer border border-stone-200/50 shadow-[0_8px_30px_rgb(0,0,0,0.02)] hover:shadow-[0_24px_48px_rgba(244,63,94,0.08)] hover:-translate-y-1.5 transition-all duration-500 ease-out flex flex-col h-full"
+      className="bg-white rounded-lg border border-gray-200 overflow-hidden cursor-pointer hover:border-gray-400 flex flex-col h-full shadow-sm"
     >
-      <div className="relative overflow-hidden aspect-[4/3]">
+      <div className="h-48 overflow-hidden relative">
         <img
           src={item.image}
           alt={item.name}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+          className="w-full h-full object-cover"
         />
-
-        <div className="absolute inset-0 bg-gradient-to-t from-stone-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
         <span
-          className={`absolute top-4 right-4 px-3 py-1 rounded-xl text-xs font-bold tracking-wide backdrop-blur-md shadow-sm border ${
-            item.isVeg 
-              ? "bg-emerald-50/90 text-emerald-700 border-emerald-100" 
-              : "bg-rose-50/90 text-rose-700 border-rose-100"
+          className={`absolute top-2 right-2 px-2 py-0.5 rounded text-[10px] font-bold border ${
+            item.isVeg
+              ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+              : "bg-rose-50 text-rose-700 border-rose-200"
           }`}
         >
-          <span className={`inline-block w-1.5 h-1.5 rounded-full mr-1.5 ${item.isVeg ? "bg-emerald-500" : "bg-rose-500"}`} />
           {item.isVeg ? "Veg" : "Non-Veg"}
         </span>
       </div>
 
-      <div className="p-6 flex flex-col flex-1">
-        <p className="text-[10px] font-black uppercase tracking-widest text-orange-500">
+      <div className="p-4 flex flex-col flex-1 space-y-2">
+        <p className="text-[10px] font-bold uppercase text-orange-650 tracking-wider">
           {item.category}
         </p>
 
-        <h2 className="text-xl font-bold mt-2 text-stone-800 group-hover:text-rose-600 transition-colors duration-300 line-clamp-1">
+        <h3 className="text-lg font-bold text-gray-800 hover:text-red-650 line-clamp-1">
           {item.name}
-        </h2>
+        </h3>
 
-        <p className="text-stone-500 text-sm mt-2.5 line-clamp-2 leading-relaxed flex-1">
+        <p className="text-gray-500 text-xs line-clamp-2 leading-normal flex-1">
           {item.description}
         </p>
 
-        <div className="mt-5 pt-4 border-t border-stone-100 flex items-center justify-between">
-          <div className="flex items-center gap-1.5 text-stone-500">
-            <span className="text-lg">🍽️</span>
-            <span className="text-xs font-semibold text-stone-600">{item.servings}</span>
-          </div>
-          <span className="text-xs font-bold text-rose-500 group-hover:translate-x-1 transition-transform duration-300">
+        <div className="pt-3 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
+          <span>Servings: {item.servings}</span>
+          <span className="text-red-600 font-bold hover:underline">
             View Recipe &rarr;
           </span>
         </div>

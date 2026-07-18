@@ -9,52 +9,48 @@ const SavedRecipes = () => {
   const { user, logout } = useAuth();
 
   return (
-    <div className="min-h-screen bg-stone-50/50">
+    <div className="min-h-screen bg-gray-50 text-gray-800">
       <Header
         user={user}
         savedCount={savedRecipes.length}
         onLogout={logout}
       />
 
-      <div className="max-w-7xl mx-auto px-6 sm:px-12 py-10 space-y-8">
-        {/* Back navigation */}
-        <Link
-          to="/"
-          className="inline-flex items-center gap-2 text-stone-500 hover:text-rose-600 font-bold text-sm transition-colors duration-300 group"
-        >
-          <span className="group-hover:-translate-x-1 transition-transform duration-300">&larr;</span> Back to Menu
-        </Link>
+      <div className="max-w-6xl mx-auto px-4 py-8 space-y-6">
+        <div>
+          <Link to="/" className="text-sm text-gray-655 hover:text-red-600 underline">
+            &larr; Back to Menu
+          </Link>
+        </div>
 
-        <div className="space-y-2 text-center sm:text-left">
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-stone-850 tracking-tight">
+        <div>
+          <h2 className="text-3xl font-extrabold text-gray-850">
             Saved Recipes
-          </h1>
-          <p className="text-stone-500 text-sm">
-            Your collection of curated recipes for quick access.
+          </h2>
+          <p className="text-gray-500 text-sm mt-1">
+            Your personal collection of bookmarked recipes.
           </p>
         </div>
 
         {savedRecipes.length === 0 ? (
-          <div className="bg-white/60 border border-stone-200/50 rounded-3xl p-12 text-center shadow-[0_8px_30px_rgb(0,0,0,0.01)] space-y-4">
-            <span className="text-4xl inline-block animate-bounce">❤️</span>
-            <h2 className="text-xl font-bold text-stone-700">No recipes saved yet.</h2>
-            <p className="text-stone-400 text-sm max-w-xs mx-auto">
-              Find recipes you like on the main menu and click "Save to Favorites" to keep them here.
+          <div className="bg-white border border-gray-200 rounded p-10 text-center shadow-sm space-y-3">
+            <p className="text-gray-600 font-semibold text-lg">
+              No saved recipes yet.
+            </p>
+            <p className="text-gray-500 text-xs max-w-xs mx-auto">
+              Find recipes you like on the main menu and save them to keep track of them here.
             </p>
             <Link
               to="/"
-              className="inline-block bg-gradient-to-r from-orange-500 to-amber-500 text-white font-bold text-xs uppercase tracking-wider px-6 py-3 rounded-xl shadow-md shadow-orange-500/10 hover:shadow-orange-500/20 active:scale-95 transition-all duration-300"
+              className="inline-block bg-red-600 hover:bg-red-700 text-white text-xs font-bold px-4 py-2 rounded"
             >
               Browse Recipes
             </Link>
           </div>
         ) : (
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
             {savedRecipes.map((item) => (
-              <FoodCard
-                key={item.id}
-                item={item}
-              />
+              <FoodCard key={item.id} item={item} />
             ))}
           </div>
         )}
